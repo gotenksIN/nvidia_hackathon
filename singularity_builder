@@ -1,0 +1,37 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/tensorflow:21.09-tf2-py3
+
+%runscript
+	"$@"
+%post
+	apt-get update && apt-get install -y --no-install-recommends \
+	curl \
+	git \
+	build-essential \
+	libgl1-mesa-glx \
+	python3 \
+	python3-opencv \
+	python3-pip \
+	python3-venv \
+	python-is-python3 && \
+	rm -rf /var/lib/apt/lists/*
+
+	git clone https://github.com/gotenksIN/nvidia_hackathon.git && cd nvidia_hackathon
+	wget https://td.angerycat.ml/yolov3.weights
+	mkdir weights && mv yolov3.weights weights/
+	wget https://td.angerycat.ml/yolov3_mask.weights
+	mkdir weights_mask && mv yolov3_mask.weights weights_mask/
+
+	wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O ~/anaconda3.sh
+	bash ~/anaconda3.sh -b -p $HOME/anaconda3
+	rm ~/anaconda3.sh
+	export PATH=~/anaconda3/bin:$PATH
+	conda init bash
+	conda update -n base -c defaults conda
+
+	conda env create -f conda-cpu-env.yml
+	conda activate cpu-env
+
+	python -m venv venv && source venv/bin/activate
+	pip install -U pip
+	pip install -r requirements.txt

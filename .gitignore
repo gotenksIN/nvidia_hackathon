@@ -1,0 +1,7 @@
+venv/*
+yolov3_tf2/*
+weights_mask/*
+weights/*
+test_csv.csv
+test_mask_output.mp4
+test_result.mp4
