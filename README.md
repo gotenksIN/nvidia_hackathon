@@ -176,7 +176,7 @@ Once you have your pixels per meter relation measures, and your warped space pre
 ---
 ### **Object Detector On Docker Image**
 
-We are using [YOLOv4](https://github.com/AlexeyAB/darknet) object detector model, here we are not going to explain what is it, or how does it work, there's tons of information to read about it. The only thing that you have to know is that everything is really simple with the docker image, you don't have to download, set and modify any file, or compile Darknet by yourself to use Yolo in your applications, just follow the previous instructions and run the bash ```start.sh```, this will do everything for you, and of course, you can use it for other proposes and your own object detections based project.
+We are using [Yolo v3] object detector model, here we are not going to explain what is it, or how does it work, there's tons of information to read about it. The only thing that you have to know is that everything is really simple with the docker image, you don't have to download, set and modify any file, or compile Darknet by yourself to use Yolo in your applications, just follow the previous instructions and run the bash ```start.sh```, this will do everything for you, and of course, you can use it for other proposes and your own object detections based project.
 
 ---
 ## Built with
