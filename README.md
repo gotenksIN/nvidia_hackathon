@@ -174,9 +174,6 @@ Once you have the warped space or projection selected, automatically the bird_vi
 Once you have your pixels per meter relation measures, and your warped space press S key to save you extrinsic calibration and press Q key to quit, and follow the next steps, run the social distancing analyzer.
 
 ---
-### **Object Detector On Docker Image**
-
-We are using [Yolo v3] object detector model, here we are not going to explain what is it, or how does it work, there's tons of information to read about it. The only thing that you have to know is that everything is really simple with the docker image, you don't have to download, set and modify any file, or compile Darknet by yourself to use Yolo in your applications, just follow the previous instructions and run the bash ```start.sh```, this will do everything for you, and of course, you can use it for other proposes and your own object detections based project.
 
 ---
 ## Built with
@@ -185,6 +182,140 @@ We are using [Yolo v3] object detector model, here we are not going to explain w
 * [Yolo v3](https://pjreddie.com/darknet/yolo/) - To handle object detection
 
 
-## License
+## COVID-19: Face Mask Detector with OpenCV, Keras/TensorFlow, and Deep Learning
+
+In this tutorial, we’ll discuss our two-phase COVID-19 face mask detector, detailing how our computer vision/deep learning pipeline will be implemented.
+From there, we’ll review the dataset we’ll be using to train our custom face mask detector.
+I’ll then show you how to implement a Python script to train a face mask detector on our dataset using Keras and TensorFlow.
+We’ll use the Python script within mask_classifier folder to train a face mask detector and review the results.
+
+Given the trained COVID-19 face mask detector, we’ll proceed to implement two more additional Python scripts used to:
+
+# Detect COVID-19 face masks in images
+Detect face masks in real-time video streams
+We’ll wrap up the post by looking at the results of applying our face mask detector.
+
+I’ll also provide some additional suggestions for further improvement.
+
+# Two-phase COVID-19 face mask detector
+
+Phases and individual steps for building a COVID-19 face mask detector with computer vision and deep learning using Python, OpenCV, and TensorFlow/Keras.
+In order to train a custom face mask detector, we need to break our project into two distinct phases, each with its own respective sub-steps (as shown by Figure 1 above):
+
+Training: Here we’ll focus on loading our face mask detection dataset from disk, training a model (using Keras/TensorFlow) on this dataset, and then serializing the face mask detector to disk
+Deployment: Once the face mask detector is trained, we can then move on to loading the mask detector, performing face detection, and then classifying each face as with_mask or without_mask
+We’ll review each of these phases and associated subsets in detail in the remainder of this tutorial, but in the meantime, let’s take a look at the dataset we’ll be using to train our COVID-19 face mask detector.
+
+Our COVID-19 face mask detection dataset
+
+A face mask detection dataset consists of “with mask” and “without mask” images. We will use the dataset to build a COVID-19 face mask detector with computer vision and deep learning using Python, OpenCV, and TensorFlow/Keras.
+
+This dataset consists of 194 images belonging to two classes:
+
+with_mask: 97 images
+without_mask: 97 images
+Our goal is to train a custom deep learning model to detect whether a person is or is not wearing a mask.
+
+Note: For convenience, I have included the dataset created by Prajna in the “Downloads” section of this tutorial.
+
+How was our face mask dataset created?
+To create this dataset, we had the ingenious solution of:
+
+Taking normal images of faces
+Then creating a custom computer vision Python script to add face masks to them, thereby creating an artificial (but still real-world applicable) dataset
+This method is actually a lot easier than it sounds once you apply facial landmarks to the problem.
+
+Facial landmarks allow us to automatically infer the location of facial structures, including:
+
+Eyes
+Eyebrows
+Nose
+Mouth
+Jawline
+# To use facial landmarks to build a dataset of faces wearing face masks, we need to first start with an image of a person not wearing a face mask:
+
+To build a COVID-19/Coronavirus pandemic face mask dataset, we’ll first start with a photograph of someone not wearing a face.
+From there, we apply face detection to compute the bounding box location of the face in the image:
+
+The next step is to apply face detection. Here we’ve used a deep learning method to perform face detection with OpenCV.
+Once we know where in the image the face is, we can extract the face Region of Interest (ROI):
+
+The next step is to extract the face ROI with OpenCV and NumPy slicing.
+And from there, we apply facial landmarks, allowing us to localize the eyes, nose, mouth, etc.:
+
+Then, we detect facial landmarks using dlib so that we know where to place a mask on the face.
+Next, we need an image of a mask (with a transparent background) such as the one below:
+
+An example of a COVID-19/Coronavirus face mask/shield. This face mask will be overlaid on the original face ROI automatically since we know the face landmark locations.This mask will be automatically applied to the face by using the facial landmarks (namely the points along the chin and nose) to compute where the mask will be placed.The mask is then resized and rotated, placing it on the face:
+
+In this figure, the face mask is placed on the person’s face in the original frame. It is difficult to tell at a glance that the COVID-19 mask has been applied with computer vision by way of OpenCV and dlib face landmarks.
+We can then repeat this process for all of our input images, thereby creating our artificial face mask dataset:
+
+An artificial set of COVID-19 face mask images is shown. This set will be part of our “with mask” / “without mask” dataset for COVID-19 face mask detection with computer vision and deep learning using Python, OpenCV, and TensorFlow/Keras.
+However, there is a caveat you should be aware of when using this method to artificially create a dataset!
+
+If you use a set of images to create an artificial dataset of people wearing masks, you cannot “re-use” the images without masks in your training set — you still need to gather non-face mask images that were not used in the artificial generation process!
+
+If you include the original images used to generate face mask samples as non-face mask samples, your model will become heavily biased and fail to generalize well. Avoid that at all costs by taking the time to gather new examples of faces without masks.
+
+
+### **Results**
+
+ Social_Distancing_Analyzer-Shopping_Mall |  Social_Distancing_Analyzer-Asakusa_Ka... | Social_Distancing_Analyzer-Shibuya_Sc...
+:-------------------------:|:-------------------------:|:-------------------------:
+[<img src="https://img.youtube.com/vi/QnXjbAGmS0U/0.jpg" width="300">](https://www.youtube.com/watch?v=QnXjbAGmS0U)    | [<img src="https://img.youtube.com/vi/A3tpgD4N9Gg/0.jpg" width="300">](https://www.youtube.com/watch?v=A3tpgD4N9Gg&t=75s) | [<img src="https://img.youtube.com/vi/enVufs1f-zc/0.jpg" width="300">](https://www.youtube.com/watch?v=enVufs1f-zc)
+
+---
+### **Shortcomings and Improvements**
+
+* Customize, perform or improve object detection model to detect better the people under different and harder scenarios. 
+* Object detection pipelines or models could have better performance.
+* Object tracker combined with detector when it loses objects in some frame.
+* General gui code optimizations and improvements
+
+---
+### **Contributing**
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+### **License**
+
+Do whatever you want!
+
+---
+### **Show Your Support**
+
+Give a ⭐️ if this project helped you!
+
+
+---
+### **Contact and Developers**
+
+💀 [Abhinav Chandra](https://www.linkedin.com/in/abhinav-chandra-165705210/), [GitHub](https://github.com/ACallglad), Email: abhinavchandra0526@gmail.com
+
+💉 [Omkar Chandorkar ](https://www.linkedin.com/in/omkarch/), [GitHub](https://github.com/gotenksIN), Email: forumomkar@gmail.com
+
+
+---
+### **Meme Zone**
+
+Keep save and don't forget ...
+
+Wash your hands |   
+:-------------------------:
+| <img src="https://media.giphy.com/media/9d2kiSODsnz7q/giphy.gif" alt="drawing" width="430"/> 
+
+Use face mask  |  Keep your distance
+:-------------------------:|:-------------------------:
+<img src="https://media.giphy.com/media/TdR5SFrzNZoPdeVKtD/giphy.gif" alt="drawing" height="300"/> | <img src="https://gif-finder.com/wp-content/uploads/2020/04/Social-distancing.gif" alt="drawing" height="300"/> 
+
+We appreciate the chance to help the world, thank you China! ... 
+
+---
 
 This project is licensed under the Apache 2 License - see the [LICENSE](LICENSE) file for details
