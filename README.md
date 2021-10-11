@@ -1,5 +1,9 @@
 ## **Social Distancing Analyzer with Face mask detection **
 
+<p align="center">
+<img src="./media/figures/banner.jpeg" alt="drawing" width="1000"/>  
+</p>
+
 Considering the big change that the world is facing, as well as our lives due to the COVID-19, we provide to people and companies a complete open-source tool to analyze the social distancing for streets, parks, offices, and even crowded places like malls, train stations, and others. 
 
 Here you have the code and everything that you'll need to perform your own intrinsic and extrinsic calibration, and run a YOLOv4 based object detection model to track the people in a warped space and analyze how far or close they are to each other (Social Distancing).
