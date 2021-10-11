@@ -1,9 +1,50 @@
-# SOCIAL AI
+## **Social Distancing Analyzer with Face mask detection **
 
-[![License](https://img.shields.io/badge/License-Apache2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+<p align="center">
+<img src="./media/figures/banner.jpeg" alt="drawing" width="1000"/>  
+</p>
 
-Our vision is to effectively use Artificial Intelligence to provide automated surveillance and ensure protective measures.
+Considering the big change that the world is facing, as well as our lives due to the COVID-19, we provide to people and companies a complete open-source tool to analyze the social distancing for streets, parks, offices, and even crowded places like malls, train stations, and others. 
 
+Here you have the code and everything that you'll need to perform your own intrinsic and extrinsic calibration, and run a YOLOv4 based object detection model to track the people in a warped space and analyze how far or close they are to each other (Social Distancing).
+
+The current pipeline only supports videos, but you can use the base classes, and methods to extend the application to video streamings, pictures and adapt it to your own project or application. Here, we will explain the dependencies, the code, and everything that you need to rock and roll!
+
+**Status**: Archive (code is provided as-is, no updates expected)
+
+<p align="center">
+<img src="./media/figures/social_distancing_demo.gif" alt="drawing" width="1000"/>
+</p>
+
+<sub>#computer-vision #Ai #object-detection #yolo #yolo4 #python3 #Docker #covid19 #extrinsic #intrinsic #calibration #social-distancing #OpenCV #OpenSource #image-processing #deep-learning </sub>
+
+---
+### **Install Anaconda Environment**
+
+Anaconda is the preferred method of installing SafeDistanceDetector dependencies on Linux Systems (Only for Extrinsic and Intrinsic calibration process). Anaconda is a data science platform for scientific computing and makes managing machine learning libraries significantly easier. Native installation of these libraries is possible, but native un-installation of these libraries can be significantly painful and introduce significantly much more bloat. which is why We DO not will not be supporting that method of installation.
+
+To download the installer, follow this link and download the Anaconda platform for Linux x64. https://www.anaconda.com/distribution/#linux.
+
+After installing the platform, you might need to add conda command into your path for further usage of the platform. You can do this with the following commands.
+
+    export PATH=~/anaconda3/bin:$PATH
+    conda init bash
+    # Restart your shell
+    
+---
+### **Install SafeDistanceDetector Environment**
+
+You will now need to create the social distancing analyser environment with the required dependencies and libraries (provided in ```requirements.txt```). 
+
+To create and to activate the environment, run:
+
+    conda create -n distancing_analyser -c main python=3.6.8
+    conda activate distancing_analyser
+    python -m pip install -r ./Safe-Distance-Detector/requirements.txt
+
+After this, fork this repo and make sure that your environment is activated and you are in the root path. Again, this environment is only for Intrinsic (If needed) and Extrinsic calibration scripts, you can not run nothing related to object detection on this environment.
+
+---
 
 ## Contents
 
