@@ -1,7 +1,3 @@
-tensorflow==2.0.1
-numpy
-opencv-python==4.1.1.26
-lxml
-tqdm
-seaborn
-pillow
+numpy==1.18.1
+opencv-python==4.2.0.34
+pyyaml
